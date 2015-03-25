@@ -20,8 +20,14 @@ class ZasekihyoServlet extends ZasekihyoStack {
 
   get("/manage") {
     displayPage("管理用ページ",
-    <p>管理用ページ</p>,
-    Seq("/assets/js/highcharts.js")
+    <p>管理用ページ</p>
+    <br/>
+    <div id="container" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>,
+    Seq("/assets/js/jquery-2.1.3.min.js",
+	"/assets/js/highcharts.js",
+	"/assets/js/modules/heatmap.js",
+	"/assets/js/modules/exporting.js",
+	"/assets/js/seat.js")
   )}
 
 }
