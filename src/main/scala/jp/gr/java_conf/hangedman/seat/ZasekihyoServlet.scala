@@ -22,7 +22,16 @@ class ZasekihyoServlet extends ZasekihyoStack {
     displayPage("管理用ページ",
     <p>管理用ページ</p>
     <br/>
-    <div id="container" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>,
+    <p>下の方にある設定項目から座席表の情報を入力してください</p>
+    <br/>
+    <div id="container"></div>
+    <br/>
+    <form action={url("/manage")} method='POST'>
+    行: <input name="row" type='text'/><br/> 	
+    列: <input name="col" type='text'/><br/> 	
+    <input type='submit'/>
+    </form>
+    ,
     Seq("/assets/js/jquery-2.1.3.min.js",
 	"/assets/js/highcharts.js",
 	"/assets/js/modules/heatmap.js",
