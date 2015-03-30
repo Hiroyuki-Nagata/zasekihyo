@@ -1,10 +1,16 @@
 package jp.gr.java_conf.hangedman.seat
 
 import org.scalatra._
+import org.scalatra.json.NativeJsonSupport
+import org.json4s.{DefaultFormats, Formats}
 import scala.xml.{Text, Node}
 import scalate.ScalateSupport
 
+case class Person(id: Int, name: String)
+
 class ZasekihyoServlet extends ZasekihyoStack {
+
+  protected implicit val jsonFormats: Formats = DefaultFormats
 
   private def displayPage(title:String, content:Seq[Node], scripts: Seq[String]) 
     = Template.page(title, content, scripts)
@@ -13,7 +19,7 @@ class ZasekihyoServlet extends ZasekihyoStack {
     <html>
       <body>
         <h1>Hello, world!</h1>
-        Say <a href="hello-scalate">hello to Scalate</a>.
+	Say <a href="hello-scalate">hello to Scalate</a>.
       </body>
     </html>
   }
@@ -26,7 +32,7 @@ class ZasekihyoServlet extends ZasekihyoStack {
     <br/>
     <div id="container"></div>
     <br/>
-    <form action={url("/manage")} method='POST'>
+    <form id='the-form' action={url("/manage")} method='POST'>
     行: <input name="row" type='text'/><br/> 	
     列: <input name="col" type='text'/><br/> 	
     <input type='submit'/>
@@ -36,9 +42,15 @@ class ZasekihyoServlet extends ZasekihyoStack {
 	"/assets/js/highcharts.js",
 	"/assets/js/modules/heatmap.js",
 	"/assets/js/modules/exporting.js",
-	"/assets/js/seat.js")
+	"/assets/js/seat.js",
+	"/assets/js/ajax.js")
   )}
 
+  post("/manage") {
+    println("This is test")
+    contentType = formats("json")
+    "This"
+  }
 }
 
 object Template {
