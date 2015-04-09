@@ -1,12 +1,13 @@
 package jp.gr.java_conf.hangedman.seat
 
 import org.scalatra._
-import org.scalatra.json.NativeJsonSupport
-import org.json4s.{DefaultFormats, Formats}
+import org.scalatra.json._
+import org.json4s._
 import scala.xml.{Text, Node}
 import scalate.ScalateSupport
 
-case class Person(id: Int, name: String)
+// seat infomation
+case class SeatPos(x: Integer, y: Integer, info: String)
 
 class ZasekihyoServlet extends ZasekihyoStack {
 
@@ -14,6 +15,14 @@ class ZasekihyoServlet extends ZasekihyoStack {
 
   private def displayPage(title:String, content:Seq[Node], scripts: Seq[String]) 
     = Template.page(title, content, scripts)
+
+  private def stringToIntIgnoreError(target: String): Integer = {
+    try {
+	target.toInt
+    } catch {
+	case e:Throwable => 0
+    }
+  }
 
   get("/") {
     <html>
@@ -47,9 +56,20 @@ class ZasekihyoServlet extends ZasekihyoStack {
   )}
 
   post("/manage") {
-    println("This is test")
+
     contentType = formats("json")
-    "This"
+
+    (params("row"), params("col")) match {
+
+      case (row:String, col:String) => {
+
+	Extraction.decompose(
+	  SeatPos(stringToIntIgnoreError(row), 
+		  stringToIntIgnoreError(col), 
+		  "Test")
+	)
+      }
+    }
   }
 }
 
