@@ -63,10 +63,16 @@ class ZasekihyoServlet extends ZasekihyoStack {
 
       case (row:String, col:String) => {
 
+	var list = List[Any]()
+
+	for ( j <- 0 to stringToIntIgnoreError(row);
+	      k <- 0 to stringToIntIgnoreError(col)) {
+	    // => List(List(1, 2), 3, 4, 5)
+	    list = List(j, k, 10) :: list
+	}
+
 	Extraction.decompose(
-	  SeatPos(stringToIntIgnoreError(row), 
-		  stringToIntIgnoreError(col), 
-		  "Test")
+	  list
 	)
       }
     }

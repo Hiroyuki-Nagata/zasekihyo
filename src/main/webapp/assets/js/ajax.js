@@ -33,6 +33,8 @@ $(function($) {
                 // 入力値を初期化
                 $form[0].reset();
 		console.log(JSON.stringify(result));
+		options.series[0].data = result;
+		chart = new Highcharts.Chart(options);
             },
             
             // 通信失敗時の処理
